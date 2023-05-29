@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <header>
-      <ul class="nav-items">
+    <header @click="toggleFalse">
+      <!-- <ul class="nav-items">
         <li>トーク</li>
         <li>お気に入り</li>
         <li>タグ</li>
@@ -10,12 +10,13 @@
         <li>LOM</li>
         <li>Web</li>
         <li>ツール</li>
-      </ul>
+      </ul> -->
+      <img src="../images/ヘッダー.png" alt="" height="100px">
     </header>
 
     <div class="test">
-      <TalkSideBar/>
-      <MainView @toggle="toggle" @clear="clearMsg" @edit="edit" :editText="selectedMsg"/>
+      <TalkSideBar @toggleF="toggleFalse" :newMsg="newMsg"/>
+      <MainView @toggleF="toggleFalse" @toggle="toggle" @new-msg="inputNewMsg" @clear="clearMsg" @edit="edit" :editText="selectedMsg"/>
       <ProofreadingSideBar v-show="isShow" @selected-msg="inputMsg" @toggle="toggle"></ProofreadingSideBar>
     </div>
 
@@ -39,12 +40,16 @@ export default {
   data: function(){
     return {
       isShow: false,
-      selectedMsg: ''
+      selectedMsg: '',
+      newMsg: []
     }
   },
   methods: {
     toggle: function(){
       this.isShow = !this.isShow
+    },
+    toggleFalse: function(){
+      this.isShow = false;
     },
     clearMsg: function(){
       this.selectedMsg = ''
@@ -54,6 +59,14 @@ export default {
     },
     inputMsg: function(msg){
       this.selectedMsg = msg
+    },
+    inputNewMsg: function(msg){
+      const temp = msg[0].split('\n');
+      if(temp.length >= 2){
+        this.newMsg = [`${temp[0]}\n${temp[1]}`, msg[1]]
+      } else {
+        this.newMsg = msg
+      }
     }
   }
 }
