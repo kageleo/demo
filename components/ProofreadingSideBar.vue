@@ -1,10 +1,10 @@
 <template>
   <div class="proofreading-side-bar">
     <div class="title-area">
-      <input type="text" v-model="title">
+      <input type="text" v-model="title" placeholder="要件を入力してください">
       <button @click="createMsg">作成</button>
     </div>
-    <div class="suggestion-erea">
+    <div class="suggestion-area">
       <div v-for="(suggestion, index) in suggestions" :key="index" @click="selectedMsg(index)">
         <p>{{ suggestion }}</p>
       </div>
@@ -32,6 +32,8 @@ export default {
     },
     selectedMsg: function(index){
       this.$emit('selected-msg', this.suggestions[index])
+      this.$emit('toggle')
+      this.suggestions = {}
     }
   }
 }
@@ -40,7 +42,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .proofreading-side-bar {
-  background-color: green;
+  background-color: rgb(33, 62, 100);
   height: 100vh;
   width: 650px;
   position: absolute;
@@ -56,13 +58,13 @@ export default {
   margin-right: 5px;
 }
 
-.suggestion-erea {
+.suggestion-area {
   height: calc(100vh - 170px);
   overflow: auto;
   margin-top: 10px;
 }
 
-.suggestion-erea > div {
+.suggestion-area > div {
   background-color: white;
   margin: 8px;
   border-radius: 1px;
