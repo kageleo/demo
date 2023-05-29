@@ -43,7 +43,7 @@ export default {
 <style scoped>
 .proofreading-side-bar {
   background-color: rgb(33, 62, 100);
-  height: 100vh;
+  height: calc(100vh - 100px);
   width: 650px;
   position: absolute;
   right: 0;
